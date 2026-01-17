@@ -1,0 +1,63 @@
+{
+  "name": "autoclip-electron",
+  "version": "1.0.0",
+  "description": "AutoClip - AI-powered video clip generator",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "set NODE_ENV=development && electron .",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build:linux": "electron-builder --linux"
+  },
+  "keywords": [
+    "electron",
+    "video",
+    "ai",
+    "clips",
+    "autoclip"
+  ],
+  "author": "AutoClip Team",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1"
+  },
+  "dependencies": {},
+  "build": {
+    "appId": "com.autoclip.app",
+    "productName": "AutoClip",
+    "files": [
+      "**/*",
+      "!**/*.md",
+      "!.git",
+      "!.gitignore",
+      "!node_modules"
+    ],
+    "directories": {
+      "buildResources": "assets",
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "icon": "assets/icon.icns",
+      "category": "public.app-category.video"
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "icon": "assets/icon.png",
+      "category": "Video"
+    }
+  }
+}

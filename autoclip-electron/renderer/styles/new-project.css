@@ -1,0 +1,9 @@
+/* Specific tweaks for New Project page */
+.input-type-toggle {
+  margin-bottom: 24px;
+}
+
+/* Range slider specifics if needed beyond global */
+.slider-container {
+  padding: 10px 0;
+}

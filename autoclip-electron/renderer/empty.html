@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoClip</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles/global.css" />
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="sidebar">
+            <div class="p-6">
+                <div class="flex items-center gap-3 mb-8">
+                    <div
+                        class="text-3xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+                        AI
+                    </div>
+                    <div class="text-xl font-semibold">AutoClip</div>
+                </div>
+                <nav class="space-y-2">
+                    <!-- Navigation Items (Disabled or minimal for empty state) -->
+                    <div class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer icon-dashboard"
+                        onclick="window.router.navigate('dashboard')">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        </svg>
+                        <span class="text-gray-400">Dashboard</span>
+                    </div>
+                    <div class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer icon-new-project"
+                        onclick="window.router.navigate('new-project')">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        <span class="text-gray-400">New Project</span>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="dashboard-content flex flex-col items-center justify-center h-full">
+                <div class="glass-card p-10 text-center max-w-lg w-full">
+                    <!-- Large Logo -->
+                    <div class="mb-6 flex justify-center">
+                        <div
+                            class="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center border border-white/10 glow-blue">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5" class="text-white">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <h2
+                        class="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                        Welcome to AutoClip</h2>
+                    <p class="text-gray-400 mb-8 leading-relaxed">
+                        Start your first project to automatically generate viral clips from your videos.
+                        AI-powered highlighting, subtitling, and cropping.
+                    </p>
+
+                    <div class="space-y-4">
+                        <button onclick="window.router.navigate('new-project')"
+                            class="btn-primary w-full py-4 text-lg shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transition-all">
+                            Create New Project
+                        </button>
+                        <!-- <button class="btn-secondary w-full py-3">Open Existing Project</button> -->
+                    </div>
+
+                    <p class="text-xs text-gray-500 mt-6 pt-6 border-t border-white/5">
+                        Supports MP4, MOV, AVI, MKV • YouTube Links supported
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="router.js"></script>
+    <script src="ui-controller.js"></script>
+</body>
+
+</html>

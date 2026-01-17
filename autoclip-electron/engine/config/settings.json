@@ -1,0 +1,76 @@
+{
+  "python_path": "engine/.venv/Scripts/python.exe",
+  "ffmpeg_path": "ffmpeg",
+  "max_clips": 5,
+  "clip_duration": 30,
+  "output_dir": "./output",
+  "temp_dir": "./temp",
+  "whisper_model": "small",
+  "audio_format": "wav",
+  "video_formats": [
+    "mp4",
+    "mov",
+    "mkv",
+    "avi"
+  ],
+  "highlight": {
+    "energy_threshold": 0.8,
+    "silence_threshold": 0.02,
+    "silence_min_duration": 2.0,
+    "keywords": [
+      "wow",
+      "amazing",
+      "incredible",
+      "awesome",
+      "brilliant"
+    ]
+  },
+  "ffmpeg": {
+    "audio_codec": "pcm_s16le",
+    "video_codec": "libx264",
+    "preset": "fast",
+    "crf": 28
+  },
+  "face_detection": {
+    "enabled": false,
+    "model_selection": 0,
+    "min_detection_confidence": 0.5,
+    "frame_skip": 10,
+    "max_faces": 1
+  },
+  "crop": {
+    "aspect_ratio": "16:9",
+    "target_width": 1920,
+    "target_height": 1080,
+    "face_center_crop": true
+  },
+  "subtitle": {
+    "enabled": true,
+    "style": "tiktok",
+    "position": "center",
+    "color": "white",
+    "uppercase": true,
+    "max_words_per_line": 6,
+    "max_duration": 2.5,
+    "min_duration": 1.5,
+    "highlight_keywords": [
+      "wow",
+      "gokil",
+      "parah",
+      "gila",
+      "amazing",
+      "incredible",
+      "awesome",
+      "brilliant",
+      "sangat",
+      "benar-benar",
+      "luar biasa"
+    ]
+  },
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  },
+  "project_name": "Test2_CropOFF_Draft",
+  "enable_crop": false
+}

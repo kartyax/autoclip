@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AutoClip - AI Video Clipper</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: #0a0a0a;
+        color: #e5e7eb;
+        overflow: hidden;
+      }
+
+      .app-container {
+        display: flex;
+        height: 100vh;
+      }
+
+      .sidebar {
+        width: 240px;
+        background: rgba(17, 17, 17, 0.95);
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 20px;
+      }
+
+      .nav-item {
+        padding: 12px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        color: #9ca3af;
+        margin-bottom: 4px;
+        transition: all 0.2s;
+      }
+
+      .nav-item:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .nav-item.active {
+        background: rgba(59, 130, 246, 0.15);
+        color: #60a5fa;
+      }
+
+      .main-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .topbar {
+        height: 64px;
+        background: rgba(17, 17, 17, 0.8);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        display: flex;
+        align-items: center;
+        padding: 0 32px;
+        justify-content: space-between;
+      }
+
+      .content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 24px 32px;
+      }
+
+      .glass-card {
+        background: rgba(17, 17, 17, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        padding: 24px;
+        backdrop-filter: blur(10px);
+      }
+
+      .status-badge {
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      .status-idle {
+        background: rgba(107, 114, 128, 0.2);
+        color: #9ca3af;
+      }
+
+      .status-running {
+        background: rgba(34, 197, 94, 0.2);
+        color: #22c55e;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.7;
+        }
+      }
+
+      .progress-bar {
+        height: 6px;
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        border-radius: 3px;
+        transition: width 0.3s ease;
+      }
+
+      .btn-primary {
+        padding: 10px 24px;
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        border: none;
+        color: white;
+        transition: all 0.2s;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+      }
+
+      input[type="text"],
+      input[type="url"],
+      select {
+        width: 100%;
+        padding: 12px;
+        background: rgba(17, 17, 17, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        color: #e5e7eb;
+        font-size: 14px;
+      }
+
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: #3b82f6;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="flex items-center gap-3 mb-8">
+          <div
+            class="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent"
+          >
+            AI
+          </div>
+          <div class="text-lg font-semibold">AutoClip</div>
+        </div>
+        <nav>
+          <div class="nav-item active" onclick="showPage('dashboard')">
+            Dashboard
+          </div>
+          <div class="nav-item" onclick="showPage('new-project')">
+            New Project
+          </div>
+          <div class="nav-item" onclick="showPage('queue')">Queue</div>
+          <div class="nav-item" onclick="showPage('logs')">Logs</div>
+          <div class="nav-item" onclick="showPage('clips')">Clips</div>
+        </nav>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <!-- Topbar -->
+        <div class="topbar">
+          <h1 id="page-title" class="text-xl font-bold">Dashboard</h1>
+          <div class="flex items-center gap-4">
+            <div id="status-badge" class="status-badge status-idle">Idle</div>
+          </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="content">
+          <!-- Dashboard Page -->
+          <div id="page-dashboard" class="page">
+            <h2 class="text-2xl font-bold mb-6">Welcome to AutoClip</h2>
+            <div class="glass-card">
+              <p class="text-gray-400 mb-4">
+                AutoClip uses AI to automatically generate highlight clips from
+                your videos.
+              </p>
+              <button class="btn-primary" onclick="showPage('new-project')">
+                Start New Project
+              </button>
+            </div>
+          </div>
+
+          <!-- New Project Page -->
+          <div id="page-new-project" class="page hidden">
+            <h2 class="text-2xl font-bold mb-6">New Project</h2>
+            <div class="glass-card">
+              <form id="project-form" class="space-y-6">
+                <!-- Input Type -->
+                <div>
+                  <label class="block text-sm font-medium mb-2"
+                    >Video Source</label
+                  >
+                  <select id="input-type" class="mb-4">
+                    <option value="youtube">YouTube URL</option>
+                    <option value="local">Local Video File</option>
+                  </select>
+
+                  <div id="input-youtube">
+                    <input
+                      type="url"
+                      id="youtube-url"
+                      placeholder="https://youtube.com/watch?v=..."
+                    />
+                  </div>
+
+                  <div id="input-local" class="hidden">
+                    <div class="flex gap-2">
+                      <input
+                        type="text"
+                        id="local-file"
+                        placeholder="Select video file..."
+                        readonly
+                      />
+                      <button
+                        type="button"
+                        class="btn-primary"
+                        onclick="selectFile()"
+                      >
+                        Browse
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Output Folder -->
+                <div>
+                  <label class="block text-sm font-medium mb-2"
+                    >Output Folder</label
+                  >
+                  <div class="flex gap-2">
+                    <input
+                      type="text"
+                      id="output-folder"
+                      placeholder="Select output folder..."
+                      readonly
+                    />
+                    <button
+                      type="button"
+                      class="btn-primary"
+                      onclick="selectFolder()"
+                    >
+                      Browse
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Max Clips -->
+                <div>
+                  <label class="block text-sm font-medium mb-2"
+                    >Max Clips: <span id="max-clips-value">5</span></label
+                  >
+                  <input
+                    type="range"
+                    id="max-clips"
+                    min="1"
+                    max="10"
+                    value="5"
+                    class="w-full"
+                  />
+                </div>
+
+                <!-- Clip Duration -->
+                <div>
+                  <label class="block text-sm font-medium mb-2"
+                    >Clip Duration:
+                    <span id="clip-duration-value">60</span>s</label
+                  >
+                  <input
+                    type="range"
+                    id="clip-duration"
+                    min="10"
+                    max="300"
+                    value="60"
+                    class="w-full"
+                  />
+                </div>
+
+                <!-- Start Button -->
+                <button type="submit" class="btn-primary w-full">
+                  Start Processing
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Queue Page -->
+          <div id="page-queue" class="page hidden">
+            <h2 class="text-2xl font-bold mb-6">Processing Queue</h2>
+            <div id="queue-container" class="space-y-4">
+              <div class="glass-card text-center text-gray-400">
+                No active jobs
+              </div>
+            </div>
+          </div>
+
+          <!-- Logs Page -->
+          <div id="page-logs" class="page hidden">
+            <h2 class="text-2xl font-bold mb-6">Logs</h2>
+            <div class="glass-card">
+              <div
+                id="logs-container"
+                class="font-mono text-sm space-y-1"
+                style="max-height: 600px; overflow-y: auto"
+              >
+                <div class="text-gray-500">No logs yet...</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Clips Page -->
+          <div id="page-clips" class="page hidden">
+            <h2 class="text-2xl font-bold mb-6">Generated Clips</h2>
+            <div id="clips-container" class="grid grid-cols-3 gap-4">
+              <div class="glass-card text-center text-gray-400">
+                No clips yet
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Global state
+      let appState = {
+        isProcessing: false,
+        currentJob: null,
+        clips: [],
+        logs: [],
+      };
+
+      // Page navigation
+      function showPage(pageName) {
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.add("hidden"));
+        document.getElementById(`page-${pageName}`).classList.remove("hidden");
+
+        document
+          .querySelectorAll(".nav-item")
+          .forEach((n) => n.classList.remove("active"));
+        event.target.classList.add("active");
+
+        document.getElementById("page-title").textContent = pageName
+          .split("-")
+          .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+          .join(" ");
+      }
+
+      // Input type toggle
+      document.getElementById("input-type").addEventListener("change", (e) => {
+        if (e.target.value === "youtube") {
+          document.getElementById("input-youtube").classList.remove("hidden");
+          document.getElementById("input-local").classList.add("hidden");
+        } else {
+          document.getElementById("input-youtube").classList.add("hidden");
+          document.getElementById("input-local").classList.remove("hidden");
+        }
+      });
+
+      // Range sliders
+      document.getElementById("max-clips").addEventListener("input", (e) => {
+        document.getElementById("max-clips-value").textContent = e.target.value;
+      });
+
+      document
+        .getElementById("clip-duration")
+        .addEventListener("input", (e) => {
+          document.getElementById("clip-duration-value").textContent =
+            e.target.value;
+        });
+
+      // File selection
+      async function selectFile() {
+        try {
+          const result = await window.electronAPI.selectFile();
+          if (result && result.filePath) {
+            document.getElementById("local-file").value = result.filePath;
+          }
+        } catch (error) {
+          console.error("File selection failed:", error);
+        }
+      }
+
+      async function selectFolder() {
+        try {
+          const result = await window.electronAPI.selectFolder();
+          if (result && result.folderPath) {
+            document.getElementById("output-folder").value = result.folderPath;
+          }
+        } catch (error) {
+          console.error("Folder selection failed:", error);
+        }
+      }
+
+      // Form submission
+      document
+        .getElementById("project-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          if (appState.isProcessing) {
+            alert("Already processing a project");
+            return;
+          }
+
+          const inputType = document.getElementById("input-type").value;
+          const input =
+            inputType === "youtube"
+              ? document.getElementById("youtube-url").value
+              : document.getElementById("local-file").value;
+
+          const output = document.getElementById("output-folder").value;
+          const maxClips = parseInt(document.getElementById("max-clips").value);
+          const clipDuration = parseInt(
+            document.getElementById("clip-duration").value,
+          );
+
+          if (!input) {
+            alert("Please provide video input");
+            return;
+          }
+
+          if (!output) {
+            alert("Please select output folder");
+            return;
+          }
+
+          const payload = {
+            input,
+            inputType,
+            output,
+            maxClips,
+            clipDuration,
+            aspect: "16:9",
+            subtitle: "tiktok",
+            subtitleStyle: "tiktok",
+            subtitlePosition: "center",
+            subtitleColor: "white",
+          };
+
+          try {
+            appState.isProcessing = true;
+            document.getElementById("status-badge").textContent = "Processing";
+            document.getElementById("status-badge").className =
+              "status-badge status-running";
+
+            await window.electronAPI.startEngine(payload);
+            showPage("queue");
+          } catch (error) {
+            console.error("Failed to start engine:", error);
+            alert("Failed to start processing: " + error.message);
+            appState.isProcessing = false;
+            document.getElementById("status-badge").textContent = "Idle";
+            document.getElementById("status-badge").className =
+              "status-badge status-idle";
+          }
+        });
+
+      // Listen for backend events
+      window.electronAPI.onEvent((event, data) => {
+        console.log("Event:", data);
+
+        if (data.type === "progress") {
+          updateProgress(data);
+        } else if (data.type === "log") {
+          addLog(data);
+        } else if (data.type === "error") {
+          handleError(data);
+        } else if (data.type === "clip") {
+          addClip(data);
+        } else if (data.type === "complete") {
+          handleComplete(data);
+        }
+      });
+
+      function updateProgress(data) {
+        const step = data.step || "processing";
+        const percent = data.percent || 0;
+
+        document.getElementById("queue-container").innerHTML = `
+        <div class="glass-card">
+          <div class="mb-2">
+            <div class="text-sm text-gray-400 mb-1">${step} - ${percent}%</div>
+          </div>
+          <div class="w-full bg-gray-800 rounded-full h-2">
+            <div class="progress-bar" style="width: ${percent}%"></div>
+          </div>
+        </div>
+      `;
+      }
+
+      function addLog(data) {
+        const logsContainer = document.getElementById("logs-container");
+        if (logsContainer.children[0]?.textContent === "No logs yet...") {
+          logsContainer.innerHTML = "";
+        }
+
+        const logDiv = document.createElement("div");
+        const timestamp = new Date().toLocaleTimeString();
+        logDiv.className = "text-gray-300";
+        logDiv.textContent = `[${timestamp}] ${data.message}`;
+        logsContainer.appendChild(logDiv);
+        logsContainer.scrollTop = logsContainer.scrollHeight;
+      }
+
+      function handleError(data) {
+        alert("Error: " + data.message);
+        appState.isProcessing = false;
+        document.getElementById("status-badge").textContent = "Error";
+        document.getElementById("status-badge").className =
+          "status-badge status-idle";
+        showPage("logs");
+      }
+
+      function addClip(data) {
+        appState.clips.push(data);
+        updateClipsGrid();
+      }
+
+      function updateClipsGrid() {
+        const container = document.getElementById("clips-container");
+        if (appState.clips.length === 0) {
+          container.innerHTML =
+            '<div class="glass-card text-center text-gray-400">No clips yet</div>';
+          return;
+        }
+
+        container.innerHTML = appState.clips
+          .map(
+            (clip) => `
+        <div class="glass-card">
+          <video controls class="w-full rounded mb-2">
+            <source src="file://${clip.file}" type="video/mp4">
+          </video>
+          <div class="text-sm">${clip.file.split(/[\\/]/).pop()}</div>
+          <div class="text-xs text-gray-400">Duration: ${clip.duration}s</div>
+        </div>
+      `,
+          )
+          .join("");
+      }
+
+      function handleComplete(data) {
+        appState.isProcessing = false;
+        document.getElementById("status-badge").textContent = "Completed";
+        document.getElementById("status-badge").className =
+          "status-badge status-idle";
+        showPage("clips");
+        alert(
+          "Processing completed! " + appState.clips.length + " clips generated",
+        );
+      }
+    </script>
+  </body>
+</html>

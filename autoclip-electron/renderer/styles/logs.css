@@ -1,0 +1,6 @@
+/* Specific tweaks for logs page */
+.logs-viewer {
+  font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.6;
+}

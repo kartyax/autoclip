@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoClip Settings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles/global.css" />
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="p-6">
+                <div class="flex items-center gap-3 mb-8">
+                    <div
+                        class="text-3xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+                        AI
+                    </div>
+                    <div class="text-xl font-semibold">AutoClip</div>
+                </div>
+
+                <nav class="space-y-2">
+                    <!-- 1. Dashboard -->
+                    <div class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer icon-dashboard"
+                        onclick="window.router.navigate('dashboard')">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        </svg>
+                        <span class="text-gray-400">Dashboard</span>
+                    </div>
+
+                    <!-- 2. New Project -->
+                    <div class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer icon-new-project"
+                        onclick="window.router.navigate('new-project')">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        <span class="text-gray-400">New Project</span>
+                    </div>
+
+                    <!-- 3. Queue -->
+                    <div class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer icon-queue"
+                        onclick="window.router.navigate('queue')">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                        </svg>
+                        <span class="text-gray-400">Queue</span>
+                    </div>
+
+                    <!-- 4. Logs -->
+                    <div class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer icon-logs"
+                        onclick="window.router.navigate('logs')">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        <span class="text-gray-400">Logs</span>
+                    </div>
+
+                    <!-- 5. Clips -->
+                    <div class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer icon-clips"
+                        onclick="window.router.navigate('clips')">
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                        <span class="text-gray-400">Clips</span>
+                    </div>
+
+                    <!-- 6. Settings (Active) -->
+                    <div class="nav-item active flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer icon-settings"
+                        onclick="window.router.navigate('settings')">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        <span class="font-medium">Settings</span>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Topbar -->
+            <div class="topbar flex items-center justify-between px-8">
+                <h1 class="text-2xl font-bold">Settings</h1>
+                <div class="flex items-center gap-4">
+                    <button
+                        class="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg font-medium hover:from-blue-600 hover:to-blue-700 transition-all">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <div class="main-grid">
+                    <!-- Left Column -->
+                    <div class="space-y-6">
+                        <!-- Appearance -->
+                        <div class="glass-card p-6">
+                            <h2 class="text-lg font-semibold mb-4">Appearance</h2>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-300">Theme</span>
+                                    <div class="flex items-center gap-4">
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="radio" name="theme" value="dark" checked class="hidden peer" />
+                                            <div
+                                                class="w-4 h-4 rounded-full border border-gray-500 peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all flex items-center justify-center">
+                                                <div
+                                                    class="w-1.5 h-1.5 bg-white rounded-full opacity-0 peer-checked:opacity-100">
+                                                </div>
+                                            </div>
+                                            <span class="text-sm">Dark</span>
+                                        </label>
+                                        <label class="flex items-center gap-2 cursor-pointer">
+                                            <input type="radio" name="theme" value="light" class="hidden peer" />
+                                            <div
+                                                class="w-4 h-4 rounded-full border border-gray-500 peer-checked:bg-blue-500 peer-checked:border-blue-500 transition-all flex items-center justify-center">
+                                                <div
+                                                    class="w-1.5 h-1.5 bg-white rounded-full opacity-0 peer-checked:opacity-100">
+                                                </div>
+                                            </div>
+                                            <span class="text-sm">Light</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Performance -->
+                        <div class="glass-card p-6">
+                            <h2 class="text-lg font-semibold mb-4">Performance</h2>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-300">Performance Mode</span>
+                                    <select>
+                                        <option>Balanced</option>
+                                        <option>High</option>
+                                    </select>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-300">GPU Acceleration</span>
+                                    <label class="toggle-checkbox-label">
+                                        <input type="checkbox" checked class="toggle-checkbox" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Output -->
+                        <div class="glass-card p-6">
+                            <h2 class="text-lg font-semibold mb-4">Output</h2>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2 text-gray-400">Default Output
+                                        Folder</label>
+                                    <div class="flex gap-2">
+                                        <input type="text" value="C:\Users\Default\AutoClip\Output" readonly />
+                                        <button class="btn-secondary">Browse</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="space-y-6">
+                        <!-- API Configuration -->
+                        <div class="glass-card p-6">
+                            <h2 class="text-lg font-semibold mb-4">
+                                API Configuration
+                            </h2>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2 text-gray-400">API Key</label>
+                                    <input type="password" placeholder="Enter API key (optional)" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2 text-gray-400">API Endpoint</label>
+                                    <input type="url" placeholder="https://api.example.com" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Danger Zone -->
+                        <div class="glass-card p-6 border border-red-500/20">
+                            <h2 class="text-lg font-semibold mb-4 text-red-500">
+                                Danger Zone
+                            </h2>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="text-sm font-medium">Clear Cache</div>
+                                        <div class="text-xs text-gray-500">
+                                            Clear temporary files and cached data
+                                        </div>
+                                    </div>
+                                    <button
+                                        class="px-3 py-1.5 bg-yellow-600/20 text-yellow-500 hover:bg-yellow-600/30 rounded-lg text-sm font-medium transition-all">
+                                        Clear
+                                    </button>
+                                </div>
+                                <div class="border-t border-white/5 pt-4">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <div class="text-sm font-medium">
+                                                Reset Application Settings
+                                            </div>
+                                            <div class="text-xs text-gray-500">
+                                                Reset all settings to default values
+                                            </div>
+                                        </div>
+                                        <button
+                                            class="px-3 py-1.5 bg-red-600/20 text-red-500 hover:bg-red-600/30 rounded-lg text-sm font-medium transition-all">
+                                            Reset
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="router.js"></script>
+    <script src="ui-controller.js"></script>
+</body>
+
+</html>

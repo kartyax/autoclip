@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoClip Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles/global.css" />
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="p-6">
+        <div class="flex items-center gap-3 mb-8">
+          <div class="text-3xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+            AI
+          </div>
+          <div class="text-xl font-semibold">AutoClip</div>
+        </div>
+
+        <nav class="space-y-2">
+          <!-- 1. Dashboard -->
+          <div class="nav-item active flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer icon-dashboard"
+            data-page="dashboard">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            <span class="font-medium">Dashboard</span>
+          </div>
+
+          <!-- 2. New Project -->
+          <div class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer icon-new-project"
+            data-page="new-project">
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            <span class="text-gray-400">New Project</span>
+          </div>
+
+          <!-- 3. Queue -->
+          <div class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer icon-queue"
+            data-page="queue">
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+            </svg>
+            <span class="text-gray-400">Queue</span>
+          </div>
+
+          <!-- 4. Logs -->
+          <div class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer icon-logs" data-page="logs">
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <span class="text-gray-400">Logs</span>
+          </div>
+
+          <!-- 5. Clips -->
+          <div class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer icon-clips"
+            data-page="clips">
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z">
+              </path>
+            </svg>
+            <span class="text-gray-400">Clips</span>
+          </div>
+
+          <!-- 6. Settings -->
+          <div class="nav-item flex items-center gap-3 px-4 py-3 rounded-lg cursor-pointer icon-settings"
+            data-page="settings">
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span class="text-gray-400">Settings</span>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Topbar -->
+      <div class="topbar flex items-center justify-between px-8">
+        <h1 class="text-2xl font-bold">Dashboard</h1>
+
+        <div class="flex items-center gap-4">
+          <div class="status-badge status-idle">
+            Idle
+          </div>
+          <button onclick="window.router.navigate('new-project')"
+            class="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg font-medium hover:from-blue-600 hover:to-blue-700 transition-all">
+            Start Processing
+          </button>
+        </div>
+      </div>
+
+      <!-- Dashboard Content -->
+      <div class="dashboard-content">
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+          <!-- Active Projects -->
+          <div class="glass-card p-6 glow-blue">
+            <div class="icon-circle mb-4" style="background: rgba(78, 168, 255, 0.15);">
+              <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </div>
+            <div class="text-gray-400 text-sm mb-1">Active Projects</div>
+            <div id="stat-active-jobs" class="text-4xl font-bold">0</div>
+          </div>
+
+          <!-- In Queue -->
+          <div class="glass-card p-6 glow-purple">
+            <div class="icon-circle mb-4" style="background: rgba(139, 92, 246, 0.15);">
+              <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div class="text-gray-400 text-sm mb-1">In Queue</div>
+            <div class="text-4xl font-bold">0</div>
+          </div>
+
+          <!-- Completed -->
+          <div class="glass-card p-6 glow-green">
+            <div class="icon-circle mb-4" style="background: rgba(34, 197, 94, 0.15);">
+              <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div class="text-gray-400 text-sm mb-1">Completed</div>
+            <div id="stat-total-clips" class="text-4xl font-bold">0</div>
+          </div>
+
+          <!-- Errors -->
+          <div class="glass-card p-6 glow-red">
+            <div class="icon-circle mb-4" style="background: rgba(239, 68, 68, 0.15);">
+              <svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div class="text-gray-400 text-sm mb-1">Errors</div>
+            <div id="stat-errors" class="text-4xl font-bold">0</div>
+          </div>
+        </div>
+
+        <!-- Main Grid: Processing Queue & Recent Projects -->
+        <div class="main-grid">
+          <!-- Processing Queue -->
+          <div class="glass-card p-6">
+            <h2 class="text-xl font-semibold mb-6">Processing Queue</h2>
+            <div id="queue-container">
+              <div class="text-gray-500 italic text-sm">No active jobs running</div>
+            </div>
+          </div>
+
+          <!-- Recent Projects -->
+          <div class="glass-card p-6">
+            <h2 class="text-xl font-semibold mb-6">Recent Projects</h2>
+
+            <div id="recent-projects-list" class="space-y-4">
+              <!-- Content populated dynamically by ui-controller.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- System Usage -->
+        <div class="system-grid">
+          <!-- CPU Usage -->
+          <div class="glass-card p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold">CPU Usage</h3>
+              <span class="text-xs text-gray-500">Y:14</span>
+            </div>
+
+            <div class="relative h-32 mb-4">
+              <svg class="w-full h-full" viewBox="0 0 300 100" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="cpuGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:#4EA8FF;stop-opacity:0.3" />
+                    <stop offset="100%" style="stop-color:#4EA8FF;stop-opacity:0" />
+                  </linearGradient>
+                </defs>
+                <path d="M0,80 Q30,75 60,78 T120,72 T180,75 T240,70 T300,68" stroke="#4EA8FF" stroke-width="2"
+                  fill="url(#cpuGradient)" />
+              </svg>
+            </div>
+
+            <div class="text-3xl font-bold text-blue-400">40%</div>
+          </div>
+
+          <!-- GPU Usage -->
+          <div class="glass-card p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-semibold">GPU Usage</h3>
+              <span class="text-xs text-gray-500">Y:B</span>
+            </div>
+
+            <div class="relative h-32 mb-4">
+              <svg class="w-full h-full" viewBox="0 0 300 100" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="gpuGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:#8B5CF6;stop-opacity:0.3" />
+                    <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:0" />
+                  </linearGradient>
+                </defs>
+                <path d="M0,90 Q30,88 60,85 Q90,30 120,25 Q150,35 180,85 Q210,30 240,25 Q270,35 300,30" stroke="#8B5CF6"
+                  stroke-width="2" fill="url(#gpuGradient)" />
+              </svg>
+            </div>
+
+            <div class="text-3xl font-bold text-purple-400">80%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="router.js"></script>
+  <script src="ui-controller.js"></script>
+</body>
+
+</html>
